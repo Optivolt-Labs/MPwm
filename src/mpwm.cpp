@@ -54,11 +54,11 @@ static void configure_tc(const uint32_t &tcNum, Tc* &TCx, const GClk &clk) {
 
     // reset all bits in TC and disable it
     TCx->COUNT32.CTRLA.bit.SWRST = 1;
-    while (TCx->COUNT8.SYNCBUSY.bit.SWRST);
+    while (TCx->COUNT32.SYNCBUSY.bit.SWRST);
 
     // disabling like this might be unnessescary
     TCx->COUNT32.CTRLA.bit.ENABLE = 0;
-    while (TCx->COUNT8.SYNCBUSY.bit.ENABLE);
+    while (TCx->COUNT32.SYNCBUSY.bit.ENABLE);
 
     TCx->COUNT32.CTRLA.reg = TC_CTRLA_MODE_COUNT32 | TC_CTRLA_PRESCALER_DIV1;
     TCx->COUNT32.WAVE.reg = TC_WAVE_WAVEGEN_MPWM;
