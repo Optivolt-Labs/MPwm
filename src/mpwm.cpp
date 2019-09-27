@@ -150,6 +150,8 @@ void MatchPwm::_setFrequency(float freq, bool update_duty) {
             TCx->COUNT32.CC[1].reg = (uint32_t) round(goal_trigger_per);
             while (TCx->COUNT32.SYNCBUSY.bit.CC0);
             while (TCx->COUNT32.SYNCBUSY.bit.CC1);
+
+            enable_tc(_tcNum, TCx);
         } else {
             // this else block is implemented instead of just placing the code
             // outside of the condition block to save a few cycles when we're
