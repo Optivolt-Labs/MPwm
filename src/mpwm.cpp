@@ -73,7 +73,7 @@ MatchPwm::MatchPwm(uint32_t pin, GClk clk) : _pin(pin), _pinDesc(g_APinDescripti
     _tcChannel = 0;
     _hasTc = false;
 
-    bool pwm_supported;
+    bool pwm_supported = true;
 
     if ((attr & PIN_ATTR_ANALOG) == PIN_ATTR_ANALOG) {
         if (pin == PIN_A0 || pin == PIN_A1) {
