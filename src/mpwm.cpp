@@ -89,12 +89,9 @@ MatchPwm::MatchPwm(uint32_t pin, GClk clk) : _pin(pin), _pinDesc(g_APinDescripti
         _tcChannel = GetTCChannelNumber(_pinDesc.ulPWMChannel);
 
         // set to timer peripheral instead of default
-        if(attr & PIN_ATTR_PWM_E)
+        if(attr & PIN_ATTR_PWM_E) {
             pinPeripheral(pin, PIO_TIMER);
-        else if(attr & PIN_ATTR_PWM_F)
-            pinPeripheral(pin, PIO_TIMER_ALT);
-        else if(attr & PIN_ATTR_PWM_G)
-            pinPeripheral(pin, PIO_TCC_PDEC);
+        }
 
         // configure the TC if it hasn't been already
         if (_tcNum >= TCC_INST_NUM) {
