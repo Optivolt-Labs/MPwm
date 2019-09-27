@@ -19,7 +19,7 @@ static inline void enable_tc(const uint32_t &tcNum, Tc* &TCx) {
     if (TCx->COUNT32.CTRLA.bit.ENABLE)
         return;
 
-    TCx->COUNT32.CTRLA.bit.ENABLE = 1;
+    TCx->COUNT32.CTRLA.bit.ENABLE = true;
     while(TCx->COUNT32.SYNCBUSY.bit.ENABLE);
 }
 
@@ -27,7 +27,7 @@ static inline void disable_tc(const uint32_t &tcNum, Tc* &TCx) {
     if (!TCx->COUNT32.CTRLA.bit.ENABLE)
         return;
 
-    TCx->COUNT32.CTRLA.bit.ENABLE = 0;
+    TCx->COUNT32.CTRLA.bit.ENABLE = false;
     while(TCx->COUNT32.SYNCBUSY.bit.ENABLE);
 }
 
