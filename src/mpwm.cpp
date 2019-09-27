@@ -189,10 +189,10 @@ float MatchPwm::getFrequency() {
 }
 
 void MatchPwm::setDutyRate(float duty) {
-    if (duty > 100.0) {
-        duty = 100.0;
-    } else if (duty < 0.0) {
-        duty = 0.0;
+    if (duty > 1) {
+        duty = 1;
+    } else if (duty < 0) {
+        duty = 0;
     }
 
     if(_hasTc) {
@@ -212,7 +212,7 @@ float MatchPwm::getDutyRate() {
     if(_hasTc) {
         // calculate based on prescaler mode and cc0
         Tc* TCx = (Tc*) GetTC(_pinDesc.ulPWMChannel);
-        return TCx->COUNT32.CC[1].reg / this->getFrequency();
+        return (float) TCx->COUNT32.CC[1].reg / TCx->COUNT32.CC[0].reg;
     }
     return -1; // it's possible to return valid responses but it's too annoying
 }
