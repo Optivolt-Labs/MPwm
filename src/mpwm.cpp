@@ -201,9 +201,10 @@ void MatchPwm::setDutyRate(float duty) {
         while (TCx->COUNT32.SYNCBUSY.bit.CC1);
 
         enable_tc(_tcNum, TCx);
+    } else {
+        uint32_t val = ((uint32_t) (duty * _MPWM_ARDUINO_WRITE_MAX)) / 100;
+        analogWrite(_pin, val);
     }
-    uint32_t val = ((uint32_t) (duty * _MPWM_ARDUINO_WRITE_MAX)) / 100;
-    analogWrite(_pin, val);
 }
 
 // returns the frequency based on the reading the mmap'd registers
