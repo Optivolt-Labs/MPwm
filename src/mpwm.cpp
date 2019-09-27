@@ -159,6 +159,9 @@ void MatchPwm::_setFrequency(float freq, bool update_duty) {
             TCx->COUNT32.CC[0].reg = (uint32_t) round(goal_period);
             while (TCx->COUNT32.SYNCBUSY.bit.CC0);
         }
+
+        // this gets reset when the cc0 is changed for some reason
+        PORT->Group[_pinDesc.ulPort].PINCFG[_pinDesc.ulPin].bit.PMUXEN = true;
     }
     // ignore if there is no Tc support
 }
