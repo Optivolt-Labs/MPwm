@@ -21,8 +21,6 @@ namespace MPwm {
             float getFrequency();
             void setDutyRate(float rate);
             float getDutyRate();
-            void setInvertEnable(bool inverted);
-            const bool isInverted();
             void write(float duty);
             void write(float duty, uint32_t freq);
 

@@ -217,27 +217,6 @@ float MatchPwm::getDutyRate() {
     return -1; // it's possible to return valid responses but it's too annoying
 }
 
-// sets the InvertEnable register for the PWM output
-// setting this allows you to effectively pass the PWM output through
-// a NOT gate, this is useful if you need an inverted output without
-// a phase shift
-void MatchPwm::setInvertEnable(bool inverted) {
-    if(_hasTc) {
-        Tc* TCx = (Tc*) GetTC(_pinDesc.ulPWMChannel);
-        // MPWM only works on W[1] anyway so we just need to invert that one
-        TCx->COUNT32.DRVCTRL.bit.INVEN1 = inverted;
-    }
-}
-
-const bool MatchPwm::isInverted() {
-    if (_hasTc) {
-        Tc* TCx = (Tc*) GetTC(_pinDesc.ulPWMChannel);
-        return TCx->COUNT32.DRVCTRL.bit.INVEN1;
-    }
-    // digital pin invert is simply ignored so it's always false
-    return false;
-}
-
 void MatchPwm::write(float duty) {
     this->setDutyRate(duty);
 }
