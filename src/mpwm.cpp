@@ -197,7 +197,7 @@ void MatchPwm::setDutyRate(float duty) {
 
     if(_hasTc) {
         Tc* TCx = (Tc*) GetTC(_pinDesc.ulPWMChannel);
-        TCx->COUNT32.CC[1].reg = (uint32_t) (TCx->COUNT32.CC[0].reg * duty);
+        TCx->COUNT32.CC[1].reg = (uint32_t) ((float) TCx->COUNT32.CC[0].reg * duty);
         while (TCx->COUNT32.SYNCBUSY.bit.CC1);
 
         enable_tc(_tcNum, TCx);
@@ -212,7 +212,7 @@ float MatchPwm::getDutyRate() {
     if(_hasTc) {
         // calculate based on prescaler mode and cc0
         Tc* TCx = (Tc*) GetTC(_pinDesc.ulPWMChannel);
-        return (float) TCx->COUNT32.CC[1].reg / TCx->COUNT32.CC[0].reg;
+        return (float) TCx->COUNT32.CC[1].reg / (float) TCx->COUNT32.CC[0].reg;
     }
     return -1; // it's possible to return valid responses but it's too annoying
 }
